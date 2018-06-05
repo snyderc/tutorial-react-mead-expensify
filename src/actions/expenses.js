@@ -1,23 +1,45 @@
 import uuid from 'uuid';
+import database from '../firebase/firebase';
+
+/* How the action generators work
+- Component calls action generator
+- Action generator returns object
+- Component dispatches object
+- Redux store changes
+*/
+
+/* How they work with async:
+- Component calls action generator
+- Action generator returns function
+- Component dispatches function (?)
+--> Needs Redux middleware to work (redux-thunk)
+- Function runs (has ability to dispatch other actions, etc.)
+*/
 
 // ADD_EXPENSE
-export const addExpense = ( 
-    { 
-        description = '',
-        note = '',
-        amount = 0,
-        createdAt = 0
-    } = {}
-) => ({
+export const addExpense = (expense) => ({
     type: 'ADD_EXPENSE',
-    expense: {
-        id: uuid(),
-        description,
-        note,
-        amount,
-        createdAt
-    }
+    expense
 });
+
+export const startAddExpense = (expenseData = {}) => {
+    return (dispatch) => {
+        // Defaults
+        const {
+            description = '',
+            note = '',
+            amount = 0,
+            createdAt = 0
+        } = expenseData;
+        const expense = { description, note, amount, createdAt };
+        return database.ref('expenses').push(expense).then( (ref) => {
+            dispatch(addExpense({
+                id: ref.key,
+                ...expense
+            }));
+        });
+    };
+};
 
 // REMOVE_EXPENSE
 export const removeExpense = ( {id} = {} ) => ({

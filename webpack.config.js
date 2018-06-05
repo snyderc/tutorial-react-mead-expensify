@@ -8,6 +8,21 @@
 
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+
+// process.env.NODE_ENV
+// Heroku automatically sets it to "production"
+// We will have "test" (test) and "undefined" (dev)
+// OS-dependent though. We'll use an npm module npm-cross-env
+// NPM module dotenv reads files for us
+// webpack DefinePlugin() allows us to read in the file securely
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'; // will be 'development' if undefined
+
+if (process.env.NODE_ENV === 'test') {
+    require('dotenv').config({ path: '.env.test' });
+} else if (process.env.NODE_ENV === 'development') {
+    require('dotenv').config({ path: '.env.development' });
+}
 
 // "devtool" allows various attributes
 // including a source map
@@ -17,7 +32,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // 'cheap-module-eval-source-map'
 
 // "yarn run dev-server" from the terminal
-// (I forget where this is defined...)
+// (see package.json)
 
 // module.exports can either be an object or a function
 
@@ -58,7 +73,15 @@ module.exports = (env) => {
             }]
         },
         plugins: [
-            CSSExtract
+            CSSExtract,
+            new webpack.DefinePlugin({
+                'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
+                'process.env.FIREBASE_AUTH_DOMAIN': JSON.stringify(process.env.AUTH_DOMAIN),
+                'process.env.FIREBASE_DATABASE_URL': JSON.stringify(process.env.FIREBASE_DATABASE_URL),
+                'process.env.FIREBASE_PROJECT_ID': JSON.stringify(process.env.FIREBASE_PROJECT_ID),
+                'process.env.FIREBASE_STORAGE_BUCKET': JSON.stringify(process.env.FIREBASE_STORAGE_BUCKET),
+                'process.env.FIREBASE_MESSAGING_SENDER_ID': JSON.stringify(process.env.FIREBASE_MESSAGING_SENDER_ID)
+            })
         ],
         // devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map',
         devtool: isProduction ? 'source-map' : 'inline-source-map',

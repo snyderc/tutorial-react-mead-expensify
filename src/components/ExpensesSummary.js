@@ -17,4 +17,12 @@ const mapStateToProps = (state) => {
     }
 };
 
+/*
+Andrew Mead's solution:
+const visibleExpenses = selectExpenses()
+then return an object with expenseCount and expenseTotal
+That way, the test case just uses a # and $, not the expense array
+Also, nomenclature: Import expenses-total as selectExpensesTotal
+*/
+
 export default connect(mapStateToProps)(ExpensesSummary);
