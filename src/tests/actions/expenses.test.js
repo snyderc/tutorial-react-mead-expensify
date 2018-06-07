@@ -164,6 +164,8 @@ test('should edit expense on firebase', (done) => {
             id,
             updates
         });
+        // You can test individual changes too:
+        // E.g. snapshot.val().amount toBe updates.amount
         return database.ref(`expenses/${id}`).once('value').then((snapshot) => {
             expect(snapshot.val()).toEqual({
                 createdAt: expenses[1].createdAt,
