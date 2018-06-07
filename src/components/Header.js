@@ -7,7 +7,7 @@ import { startLogout } from '../actions/auth';
 export const Header = ({ startLogout }) => (
     <header>
         <h1>Expensify</h1>
-        <NavLink to='/dashboard' activeClassName='is-active' exact={true}>
+        <NavLink to='/dashboard' activeClassName='is-active'>
             Dashboard
         </NavLink>
          | 
@@ -23,3 +23,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(undefined, mapDispatchToProps)(Header);
+
+/*
+<NavLink to='/' activeClassName='is-active' exact={true}>
+The "exact={true}" prop is needed to go to the homepage
+because otherwise to='/' will match any route
+starting with that string.
+*/
