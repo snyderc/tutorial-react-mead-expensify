@@ -6,8 +6,12 @@ import { startLogin } from '../actions/auth';
 // but we've destructured the props
 // which is why it takes in { startLogin }
 export const LoginPage = ({ startLogin }) => (
-    <div>
-        <button onClick={startLogin}>Login</button>
+    <div className="box-layout">
+        <div className="box-layout__box">
+            <h1 className="box-layout__title">Expensify</h1>
+            <p>It's time to get your expenses under control!</p>
+            <button class="button" onClick={startLogin}>Login with Google</button>
+        </div>
     </div>
 )
 

@@ -1,26 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render message viewing 1 expense with amount 1`] = `
-<div>
-  <p>
-    Viewing 
-    1
-     expense
-     totalling 
-    $1,095.00
-  </p>
+<div
+  className="page-header"
+>
+  <div
+    className="content-container"
+  >
+    <h1
+      className="page-header__title"
+    >
+      Viewing 
+      <span>
+        1
+      </span>
+       expense
+       totalling 
+      <span>
+        $1,095.00
+      </span>
+    </h1>
+    <div
+      className="page-header__actions"
+    >
+      <Link
+        className="button"
+        replace={false}
+        to="/create"
+      >
+        Add Expense
+      </Link>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`should render message viewing multiple expenses with total amount 1`] = `
-<div>
-  <p>
-    Viewing 
-    3
-     expense
-    s
-     totalling 
-    $1,141.95
-  </p>
+<div
+  className="page-header"
+>
+  <div
+    className="content-container"
+  >
+    <h1
+      className="page-header__title"
+    >
+      Viewing 
+      <span>
+        3
+      </span>
+       expense
+      s
+       totalling 
+      <span>
+        $1,141.95
+      </span>
+    </h1>
+    <div
+      className="page-header__actions"
+    >
+      <Link
+        className="button"
+        replace={false}
+        to="/create"
+      >
+        Add Expense
+      </Link>
+    </div>
+  </div>
 </div>
 `;
